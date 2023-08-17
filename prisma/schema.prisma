@@ -16,4 +16,17 @@ model Store {
   userId    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  bilboards Bilboard[] @relation("StoreToBilboard")
+}
+
+model Bilboard {
+  id        String @id @map("_id")
+  label     String
+  imageUrl  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  storeId   String @db.ObjectId
+  store     Store @relation("StoreToBilboard", fields: [storeId], references: [id])
 }
