@@ -91,7 +91,7 @@ export async function PATCH(
 
 export async function DELETE(
     request: Request,
-    { params }: { params: { storeId: string; billboardId: string } }
+    { params }: { params: { storeId: string; categoryId: string } }
 ) {
     try {
         const { userId } = auth();
@@ -104,21 +104,21 @@ export async function DELETE(
             return new NextResponse("No store provided.", { status: 400 });
         }
 
-        if (!params.billboardId) {
-            return new NextResponse("No billboard provided.", { status: 400 });
+        if (!params.categoryId) {
+            return new NextResponse("No category provided.", { status: 400 });
         }
 
-        const billboard = await prismadb.billboard.delete({
+        const category = await prismadb.category.delete({
             where: {
-                id: params.billboardId,
+                id: params.categoryId,
             },
         });
 
-        return new NextResponse(JSON.stringify(billboard), {
+        return new NextResponse(JSON.stringify(category), {
             status: 201,
         });
     } catch (e) {
-        console.log(e, "[billboards delete]");
+        console.log(e, "[category delete]");
         return new NextResponse("Internal Server Error", { status: 500 });
     }
 }
