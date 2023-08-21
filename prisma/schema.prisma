@@ -17,10 +17,11 @@ model Store {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  bilboards Bilboard[] @relation("StoreToBilboard")
+  billboards Billboard[] @relation("StoreToBillboard")
+  categories Category[] @relation("StoreToCategory")
 }
 
-model Bilboard {
+model Billboard {
   id        String @id @map("_id") @default(auto()) @db.ObjectId
   label     String
   imageUrl  String
@@ -28,5 +29,21 @@ model Bilboard {
   updatedAt DateTime @updatedAt
 
   storeId   String @db.ObjectId
-  store     Store @relation("StoreToBilboard", fields: [storeId], references: [id])
+  store     Store @relation("StoreToBillboard", fields: [storeId], references: [id])
+
+  categories Category[] @relation("CategoryToBillboard")
+}
+
+model Category {
+    id        String @id @map("_id") @default(auto()) @db.ObjectId
+    name      String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    storeId   String @db.ObjectId
+    store    Store @relation("StoreToCategory" ,fields: [storeId], references: [id])
+
+    billboardId String @db.ObjectId
+    billboard Billboard @relation("CategoryToBillboard", fields: [billboardId], references: [id])
+
 }

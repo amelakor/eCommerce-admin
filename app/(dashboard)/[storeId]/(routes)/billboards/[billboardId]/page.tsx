@@ -6,11 +6,17 @@ const BillboardPage = async ({
 }: {
     params: { billboardId: string };
 }) => {
-    const billboard = await prismadb.bilboard.findFirst({
-        where: {
-            id: params.billboardId,
-        },
-    });
+    let billboard;
+
+    if (params.billboardId === "new") {
+        billboard = null;
+    } else {
+        billboard = await prismadb.billboard.findUnique({
+            where: {
+                id: params.billboardId,
+            },
+        });
+    }
 
     return (
         <div className="flex-col">

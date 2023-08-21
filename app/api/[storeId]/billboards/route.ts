@@ -40,7 +40,7 @@ export async function POST(
             return new NextResponse("Unathorized", { status: 403 });
         }
 
-        const billboard = await prismadb.bilboard.create({
+        const billboard = await prismadb.billboard.create({
             data: {
                 label,
                 imageUrl,
@@ -62,7 +62,7 @@ export async function GET(
     { params }: { params: { storeId: string } }
 ) {
     try {
-        const billboards = await prismadb.bilboard.findMany({
+        const billboards = await prismadb.billboard.findMany({
             where: {
                 storeId: params.storeId,
             },

@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { Trash } from "lucide-react";
-import { Bilboard } from "@prisma/client";
+import { Billboard } from "@prisma/client";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -33,7 +33,7 @@ const formSchema = z.object({
 type BillboardFormValues = z.infer<typeof formSchema>;
 
 interface BillboardFormProps {
-    initialData: Bilboard | null;
+    initialData: Billboard | null;
 }
 
 export const BillboardForm: React.FC<BillboardFormProps> = ({
