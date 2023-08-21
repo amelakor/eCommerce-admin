@@ -33,7 +33,6 @@ model Billboard {
   store     Store @relation("StoreToBillboard", fields: [storeId], references: [id])
 
   categories Category[] @relation("CategoryToBillboard")
-  sizes Size[] @relation("SizesToBillboard")
 }
 
 model Category {
@@ -60,6 +59,5 @@ model Size {
   storeId  String @db.ObjectId
   store    Store @relation("StoreToSizes", fields: [storeId], references: [id])
 
-  billboardId String @db.ObjectId
-  billboard Billboard @relation("SizesToBillboard", fields: [billboardId], references: [id])
+
 }
