@@ -19,6 +19,7 @@ model Store {
 
   billboards Billboard[] @relation("StoreToBillboard")
   categories Category[] @relation("StoreToCategory")
+  sizes Sizes[] @relation("StoreToSizes")
 }
 
 model Billboard {
@@ -32,6 +33,7 @@ model Billboard {
   store     Store @relation("StoreToBillboard", fields: [storeId], references: [id])
 
   categories Category[] @relation("CategoryToBillboard")
+  sizes Sizes[] @relation("SizesToBillboard")
 }
 
 model Category {
@@ -46,4 +48,18 @@ model Category {
     billboardId String @db.ObjectId
     billboard Billboard @relation("CategoryToBillboard", fields: [billboardId], references: [id])
 
+}
+
+model Sizes {
+  id        String @id @map("_id") @default(auto()) @db.ObjectId
+  name      String
+  value     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  storeId  String @db.ObjectId
+  store    Store @relation("StoreToSizes", fields: [storeId], references: [id])
+
+  billboardId String @db.ObjectId
+  billboard Billboard @relation("SizesToBillboard", fields: [billboardId], references: [id])
 }
