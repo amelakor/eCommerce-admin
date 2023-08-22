@@ -21,6 +21,7 @@ model Store {
   categories Category[] @relation("StoreToCategory")
   sizes Size[] @relation("StoreToSizes")
   colors Color[] @relation("StoreToColors")
+  products Product[] @relation("StoreToProduct")
 }
 
 model Billboard {
@@ -48,6 +49,7 @@ model Category {
     billboardId String @db.ObjectId
     billboard Billboard @relation("CategoryToBillboard", fields: [billboardId], references: [id])
 
+    products Product[] @relation("CategoryToProduct")
 }
 
 model Size {
@@ -59,7 +61,9 @@ model Size {
 
   storeId  String @db.ObjectId
   store    Store @relation("StoreToSizes", fields: [storeId], references: [id])
-}
+
+  products Product[] @relation("SizeToProduct")
+  }
 
 model Color {
   id        String @id @map("_id") @default(auto()) @db.ObjectId
@@ -70,4 +74,41 @@ model Color {
 
   storeId  String @db.ObjectId
   store    Store @relation("StoreToColors", fields: [storeId], references: [id])
+ 
+  products Product[] @relation("ColorToProduct")
+}
+
+model Product {
+  id       String @id @map("_id") @default(auto()) @db.ObjectId
+  name     String
+  price    Float
+  isFeatured Boolean @default(false)
+  isArchived Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  sizeId   String @db.ObjectId
+  size    Size @relation("SizeToProduct", fields: [sizeId], references: [id])
+
+  storeId String @db.ObjectId
+  store   Store @relation("StoreToProduct",fields: [storeId], references: [id])
+
+  categoryId String @db.ObjectId
+  category   Category @relation("CategoryToProduct",fields: [categoryId], references: [id])
+
+  colorId String @db.ObjectId
+  color   Color @relation("ColorToProduct",fields: [colorId], references: [id])
+
+
+  images Image[] @relation("ProductToImage")
+  }
+
+model Image {
+  id        String @id @map("_id") @default(auto()) @db.ObjectId
+  url       String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  productId String @db.ObjectId
+  product   Product @relation("ProductToImage",fields: [productId], references: [id], onDelete: Cascade) 
 }
