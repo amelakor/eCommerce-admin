@@ -133,12 +133,6 @@ model Order {
 
 model OrderItems {
   id        String @id @map("_id") @default(auto()) @db.ObjectId
-  name      String
-  email     String
-  phone     String
-  address   String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 
   orderId String @db.ObjectId
   order   Order @relation("OrderToProduct",fields: [orderId], references: [id])
