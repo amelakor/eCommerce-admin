@@ -74,6 +74,9 @@ export async function POST(
                 },
                 storeId: params.storeId,
             },
+            include: {
+                images: true,
+            },
         });
 
         return new NextResponse(JSON.stringify(product), {
@@ -93,6 +96,9 @@ export async function GET(
         const products = await prismadb.product.findMany({
             where: {
                 storeId: params.storeId,
+            },
+            include: {
+                images: true,
             },
         });
 

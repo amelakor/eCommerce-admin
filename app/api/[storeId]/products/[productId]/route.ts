@@ -17,6 +17,9 @@ export async function GET(
             where: {
                 id: params.productId,
             },
+            include: {
+                images: true,
+            },
         });
 
         return new NextResponse(JSON.stringify(product), {
