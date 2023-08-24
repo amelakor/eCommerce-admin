@@ -99,11 +99,14 @@ export async function GET(
             },
             include: {
                 images: true,
+                size: true,
+                category: true,
+                color: true,
             },
         });
 
         return new NextResponse(JSON.stringify(products), {
-            status: 201,
+            status: 200,
         });
     } catch (e) {
         console.log(e, "[products get]");

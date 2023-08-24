@@ -17,6 +17,7 @@ const ProductsPage = async ({ params }: { params: { storeId: string } }) => {
             category: true,
             size: true,
             color: true,
+            images: true,
         },
     });
 
