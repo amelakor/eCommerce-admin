@@ -83,8 +83,6 @@ export async function PATCH(
             },
         });
 
-        console.log(store, "[store]");
-
         if (!store) {
             return new NextResponse("Unathorized", { status: 403 });
         }

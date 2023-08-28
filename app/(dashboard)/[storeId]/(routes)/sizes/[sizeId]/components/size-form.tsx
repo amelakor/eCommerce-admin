@@ -59,8 +59,6 @@ export const SizeForm: React.FC<SizeFormProps> = ({ initialData }) => {
         try {
             setLoading(true);
 
-            console.log(initialData, "initialData");
-
             if (initialData) {
                 await axios.patch(
                     `/api/${params.storeId}/sizes/${params.sizeId}`,
